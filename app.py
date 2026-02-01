@@ -68,7 +68,18 @@ def predict():
     filename = file.filename
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
     file.save(filepath)
+    # label = "Natural" if classify_audio(filepath) == 1 else "Reading"
+
+    # pred = model.predict(features_scaled)[0]
+    # label = "Natural" if pred == 1 else "Reading"
     label = "Natural" if classify_audio(filepath) == 1 else "Reading"
+
+    # --- Memory reporting ---
+    import psutil
+    process = psutil.Process(os.getpid())
+    mem_mb = process.memory_info().rss / 1024 / 1024
+    print(f"Current memory usage: {mem_mb:.2f} MB")
+
     # return f"Prediction: {label}"
     return render_template("index.html", filename=filename, prediction=label)
 
