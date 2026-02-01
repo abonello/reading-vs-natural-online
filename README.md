@@ -57,8 +57,8 @@ reading-vs-natural-online/
 │ └── natural/ # Natural speech clips
 ├── uploads/ # Uploaded audio files via Flask
 └── models/
-├── model.npz # Saved NN weights
-└── scaler.npz # Saved StandardScaler statistics
+  ├── model.npz # Saved NN weights
+  └── scaler.npz # Saved StandardScaler statistics
 ```
 
 
