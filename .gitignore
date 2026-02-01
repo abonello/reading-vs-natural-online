@@ -1,0 +1,22 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Jupyter checkpoints (if any)
+.ipynb_checkpoints/
+
+# MacOS hidden files
+.DS_Store
+
+# Data (audio files)
+# I only have a small sample of the data in the repo, so ignore the rest
+# data/
+
+# Saved models
+models/
+
+# Logs, temporary files
+*.log
