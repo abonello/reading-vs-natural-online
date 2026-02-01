@@ -17,6 +17,9 @@ __pycache__/
 
 # Saved models
 models/
+!models/model.npz
 
 # Logs, temporary files
 *.log
+
+uploads/
