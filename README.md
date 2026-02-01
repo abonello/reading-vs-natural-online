@@ -41,7 +41,7 @@ The dataset consists of **23 short audio clips**:
 ---
 
 ## Project Structure
-
+```
 reading-vs-natural-online/
 ├── app.py # Flask application
 ├── requirements.txt # Python dependencies
@@ -59,7 +59,7 @@ reading-vs-natural-online/
 └── models/
 ├── model.npz # Saved NN weights
 └── scaler.npz # Saved StandardScaler statistics
-
+```
 
 
 
