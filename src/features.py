@@ -2,32 +2,6 @@ import os
 import numpy as np
 import scipy.io.wavfile as wav
 from python_speech_features import mfcc
-# import librosa
-
-# --- Using librosa for MFCC extraction ---
-# def extract_mfcc(path, n_mfcc=13, sr=16000, duration=3):
-#     """
-#     Load an audio file and return its MFCC feature vector.
-
-#     Parameters
-#     ----------
-#     path : str
-#         Path to the audio file
-#     n_mfcc : int
-#         Number of MFCC coefficients to extract
-#     sr : int
-#         Sampling rate
-#     duration : float
-#         Maximum duration to load (seconds)
-
-#     Returns
-#     -------
-#     np.ndarray
-#         MFCC feature vector (shape: n_mfcc,)
-#     """
-#     audio, _ = librosa.load(path, sr=sr, duration=duration)
-#     mfcc = librosa.feature.mfcc(y=audio, sr=sr, n_mfcc=n_mfcc)
-#     return mfcc.mean(axis=1)
 
 # --- Using python_speech_features for MFCC extraction ---
 def extract_mfcc(path, num_coeffs=13, duration=None):

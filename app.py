@@ -41,23 +41,6 @@ def index():
     return render_template("index.html", filename=filename, prediction=prediction)
 
 
-# @app.route("/predict", methods=["POST"])
-# def predict():
-#     if "audio_file" not in request.files:
-#         return "No file uploaded", 400
-
-#     file = request.files["audio_file"]
-#     filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-#     file.save(filepath)
-
-#     # Extract features
-#     features = extract_mfcc(filepath).reshape(1, -1)
-#     features_scaled = scaler.transform(features)  # use the same scaler as training
-
-#     pred = model.predict(features_scaled)[0]
-#     label = "Natural" if pred == 1 else "Reading"
-#     return f"Prediction: {label}"
-
 @app.route("/predict", methods=["POST"])
 def predict():
     filename = None
@@ -69,7 +52,7 @@ def predict():
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
     file.save(filepath)
     label = "Natural" if classify_audio(filepath) == 1 else "Reading"
-    # return f"Prediction: {label}"
+
     return render_template("index.html", filename=filename, prediction=label)
 
 

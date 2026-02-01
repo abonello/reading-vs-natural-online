@@ -3,6 +3,9 @@
 This project is a small end-to-end audio classification system that distinguishes
 **reading-style speech** from **natural conversational speech** using short audio clips.
 
+⚡ **Implemented from scratch:** This model does **not** use TensorFlow or PyTorch. All neural network operations—including forward/backward passes and weight updates—are coded manually to demonstrate a deep understanding of audio features and learning dynamics.
+
+
 The goal is not to build a production-grade model, but to demonstrate:
 - Audio feature extraction (MFCCs)
 - Basic neural network implementation from scratch
