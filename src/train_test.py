@@ -63,6 +63,11 @@ os.makedirs("models", exist_ok=True)
 # save weights
 np.savez("models/model.npz", W1=W1, b1=b1, W2=W2, b2=b2)
 print("Model weights saved to models/model.npz")
+print("W1:", W1)
+print("W2:", W2)
+print("----")
+print("b1:", b1)
+print("b2:", b2)
 
 # check saved weights
 

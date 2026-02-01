@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reading vs Natural Audio Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            max-width: 600px;
+        }
+        h1 {
+            color: #333;
+        }
+        .instructions {
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .prediction {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Reading vs Natural Audio Classifier</h1>
+    <div class="instructions">
+        <p><strong>Instructions:</strong></p>
+        <ol>
+            <li>Start by uploading an audio file using the recommended format:</li>
+            <ul>
+                <li>Sampling rate: 16 kHz</li>
+                <li>16-bit, mono</li>
+                <li>Short clips (around 2–5 seconds)</li>
+            </ul>
+            <li>Click the <strong>Upload and Predict</strong> button to see whether the audio is <em>Reading</em> or <em>Natural</em>.</li>
+        </ol>
+    </div>
+
+    <form method="POST" action="/predict" enctype="multipart/form-data">
+        <input type="file" name="audio_file" required>
+        <input type="submit" value="Upload and Predict">
+    </form>
+
+    {% if prediction %}
+        <div class="prediction">
+            <h2>Prediction Result</h2>
+            <p><strong>File:</strong> {{ filename }}</p>
+            <p><strong>Prediction:</strong> {{ prediction }}</p>
+        </div>
+        <form method="GET" action="/">
+            <button type="submit">New Prediction</button>
+        </form>
+    {% endif %}
+</body>
+</html>

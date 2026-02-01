@@ -24,57 +24,54 @@ data = np.load("models/scaler.npz")
 scaler.mean_ = data["mean"]
 scaler.scale_ = data["scale"]
 
-# --- Routes ---
-@app.route("/")
+
+@app.route("/", methods=["GET", "POST"])
 def index():
-    return """
-    <h1>Reading vs Natural Audio Classifier</h1>
-    <form method="POST" action="/predict" enctype="multipart/form-data">
-      <input type="file" name="audio_file">
-      <input type="submit" value="Upload and Predict">
-    </form>
-    """
+    prediction = None
+    filename = None
+
+    if request.method == "POST":
+        if "audio_file" in request.files:
+            file = request.files["audio_file"]
+            filename = file.filename
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+            file.save(filepath)
+            pred = classify_audio(filepath)
+            prediction = "Natural" if pred == 1 else "Reading"
+    return render_template("index.html", filename=filename, prediction=prediction)
+
 
 # @app.route("/predict", methods=["POST"])
 # def predict():
 #     if "audio_file" not in request.files:
 #         return "No file uploaded", 400
+
 #     file = request.files["audio_file"]
 #     filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
 #     file.save(filepath)
 
-#     # Extract features and predict
+#     # Extract features
 #     features = extract_mfcc(filepath).reshape(1, -1)
-#     pred = model.predict(features)[0]
+#     features_scaled = scaler.transform(features)  # use the same scaler as training
+
+#     pred = model.predict(features_scaled)[0]
 #     label = "Natural" if pred == 1 else "Reading"
 #     return f"Prediction: {label}"
 
-
 @app.route("/predict", methods=["POST"])
 def predict():
+    filename = None
+
     if "audio_file" not in request.files:
         return "No file uploaded", 400
-
     file = request.files["audio_file"]
+    filename = file.filename
     filepath = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
     file.save(filepath)
+    label = "Natural" if classify_audio(filepath) == 1 else "Reading"
+    # return f"Prediction: {label}"
+    return render_template("index.html", filename=filename, prediction=label)
 
-    # Extract features
-    features = extract_mfcc(filepath).reshape(1, -1)
-    features_scaled = scaler.transform(features)  # use the same scaler as training
-
-    pred = model.predict(features_scaled)[0]
-    label = "Natural" if pred == 1 else "Reading"
-    return f"Prediction: {label}"
-
-
-# @app.route("/predict", methods=["POST"])
-# def predict():
-#     f = request.files["file"]
-#     path = "./temp.wav"
-#     f.save(path)
-#     label = classify_audio(path)
-#     return "Reading" if label == 0 else "Natural"
 
 # --- Run ---
 if __name__ == "__main__":
