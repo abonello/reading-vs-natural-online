@@ -18,6 +18,7 @@ __pycache__/
 # Saved models
 models/
 !models/model.npz
+!models/scaler.npz
 
 # Logs, temporary files
 *.log
